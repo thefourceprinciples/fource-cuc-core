@@ -12,13 +12,13 @@ def wrap_phase(phi: float) -> float:
 
 
 def distortion_energy(coherence: float, eps: float = 1e-6) -> float:
-    """CS mapping: C in -> additive distortion energy E >= 0."""
+    """CS mapping: C in [0, 1] -> additive distortion energy E >= 0."""
     c_clamped = max(0.0, min(1.0, coherence))
     return -math.log(c_clamped + eps)
 
 
 def coherence_from_distortion(energy: float, eps: float = 1e-6) -> float:
-    """Inverse CS mapping: E -> C in."""
+    """Inverse CS mapping: E -> C in [0, 1]."""
     return max(0.0, min(1.0, math.exp(-energy) - eps))
 
 
@@ -46,7 +46,7 @@ class Phasor:
 
 
 def kuramoto_order(phases: Sequence[float]) -> Tuple[float, float]:
-    """Compute Kuramoto order parameter r in and mean phase psi."""
+    """Compute Kuramoto order parameter r in [0, 1] and mean phase psi."""
     if not phases:
         return 1.0, 0.0
     r_complex = sum(cmath.rect(1.0, phi) for phi in phases) / len(phases)
@@ -130,4 +130,4 @@ def select_min_distortion_branch(
     branches: Dict[str, UnifiedCoherenceScore]
 ) -> Tuple[str, UnifiedCoherenceScore]:
     """CS min-plus selection: k* = argmin_k E_total(k)."""
-    return min(branches.items(), key=lambda kv: kv.E_total)
+    return min(branches.items(), key=lambda kv: kv[1].E_total)

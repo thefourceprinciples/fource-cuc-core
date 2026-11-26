@@ -1,0 +1,8 @@
+# Native Fource-CUC Assembly Program: Multi-Basin Sensory Fusion
+LOAD (0.96, 0.08), (0.93, 0.21), (0.95, 0.14), (0.62, -2.42), (0.58, -2.08)
+COMPOSE A=1.04 phi=0.04 beta=1.5
+PROJECT bounds=0.1,1.0
+BRANCH theta=0.35
+STABILIZE steps=12 kappa=0.45
+SELECT
+HALT

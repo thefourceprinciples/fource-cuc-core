@@ -1,0 +1,31 @@
+from .algebra import (
+    Phasor,
+    UnifiedCoherenceScore,
+    branch_contradictions,
+    coa_star,
+    coherence_from_distortion,
+    distortion_energy,
+    fuse_group,
+    kuramoto_order,
+    select_min_distortion_branch,
+    wrap_phase,
+)
+from .vm import CUCInstruction, CUCVirtualMachine
+from .neural import CUCDeepNetwork, CUCPhaseLayer
+
+__all__ = [
+    "Phasor",
+    "UnifiedCoherenceScore",
+    "CUCInstruction",
+    "CUCVirtualMachine",
+    "CUCPhaseLayer",
+    "CUCDeepNetwork",
+    "branch_contradictions",
+    "coa_star",
+    "coherence_from_distortion",
+    "distortion_energy",
+    "fuse_group",
+    "kuramoto_order",
+    "select_min_distortion_branch",
+    "wrap_phase",
+]

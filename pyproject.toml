@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fource-cuc-core"
+version = "0.1.0"
+description = "Fource/CUC Algebra, CUC Virtual Machine, and Phase-Locked Neural Runtime"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fource_cuc*"]

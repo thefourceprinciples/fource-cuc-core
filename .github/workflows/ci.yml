@@ -23,3 +23,5 @@ jobs:
         run: pip install -e .
       - name: Run Fource Algebra, CUC-VM & Deep Neural Tests
         run: python -m unittest discover -s tests -v
+      - name: Run .cuc Assembly CLI
+        run: fource-cuc run examples/sensory_fusion.cuc

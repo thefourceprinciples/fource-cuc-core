@@ -12,8 +12,7 @@ def _parse_kv(tokens: List[str]) -> Dict[str, Any]:
             continue
         k, v = tok.split("=", 1)
         if "," in v:
-            parts = tuple(float(x) for x in v.split(","))
-            args[k] = parts
+            args[k] = tuple(float(x) for x in v.split(","))
         elif v.isdigit():
             args[k] = int(v)
         else:
@@ -29,13 +28,13 @@ def compile_cuc_source(source: str) -> List[CUCInstruction]:
     program: List[CUCInstruction] = []
 
     for lineno, raw_line in enumerate(source.splitlines(), start=1):
-        line = raw_line.split("#", 1)[0].strip()
+        line = raw_line.split("#", 1).strip()
         if not line:
             continue
 
         parts = line.split(None, 1)
-        op = parts[0].upper()
-        rest = parts[1].strip() if len(parts) > 1 else ""
+        op = parts.upper()
+        rest = parts.strip() if len(parts) > 1 else ""
 
         if op == "LOAD":
             pairs = re.findall(r"\(\s*([+-]?\d*\.?\d+)\s*,\s*([+-]?\d*\.?\d+)\s*\)", rest)
@@ -75,5 +74,4 @@ def compile_cuc_source(source: str) -> List[CUCInstruction]:
 
 def execute_cuc_source(source: str) -> CUCMachineState:
     """Compile and run a .cuc program in one call."""
-    bytecode = compile_cuc_source(source)
-    return CUCVirtualMachine().run(bytecode)
+    return CUCVirtualMachine().run(compile_cuc_source(source))

@@ -10,7 +10,7 @@ def _parse_kv(tokens: List[str]) -> Dict[str, Any]:
     for tok in tokens:
         if "=" not in tok:
             continue
-        k, v = tok.split("=", 1)
+        k, _, v = tok.partition("=")
         if "," in v:
             args[k] = tuple(float(x) for x in v.split(","))
         elif v.isdigit():
@@ -28,13 +28,14 @@ def compile_cuc_source(source: str) -> List[CUCInstruction]:
     program: List[CUCInstruction] = []
 
     for lineno, raw_line in enumerate(source.splitlines(), start=1):
-        line = raw_line.split("#", 1).strip()
+        code_part, _, _ = raw_line.partition("#")
+        line = code_part.strip()
         if not line:
             continue
 
-        parts = line.split(None, 1)
-        op = parts.upper()
-        rest = parts.strip() if len(parts) > 1 else ""
+        op_part, _, rest_part = line.partition(" ")
+        op = op_part.strip().upper()
+        rest = rest_part.strip()
 
         if op == "LOAD":
             pairs = re.findall(r"\(\s*([+-]?\d*\.?\d+)\s*,\s*([+-]?\d*\.?\d+)\s*\)", rest)

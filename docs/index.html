@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FOURCE-CUC // Virtual Machine &amp; Phase Neural Visualizer</title>
+  <title>FOURCE-CUC // Virtual Machine, Compiler &amp; Neural Visualizer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header>
   <div>
-    <h1><span>FOURCE-CUC</span> // Virtual Machine &amp; Neural Visualizer</h1>
+    <h1><span>FOURCE-CUC</span> // Virtual Machine, Compiler &amp; Neural Visualizer</h1>
     <p>Interactive Phase/Fource Algebra (PFA), Contradiction Branching &amp; Min-Distortion Selection</p>
   </div>
   <div class="actions">
@@ -22,7 +22,7 @@
   <div class="panel">
     <div class="card">
       <h2>1. CUC Virtual Machine (CUC-VM)</h2>
-      <div class="sub">Execute Opcodes: LOAD &rarr; COMPOSE &rarr; PROJECT &rarr; BRANCH &rarr; STABILIZE &rarr; SELECT</div>
+      <div class="sub">Visual Unit-Circle Execution: LOAD &rarr; COMPOSE &rarr; PROJECT &rarr; BRANCH &rarr; STABILIZE &rarr; SELECT</div>
       <div class="btn-row">
         <button onclick="vmStep()">Step Next Opcode</button>
         <button class="secondary" onclick="vmRunAll()">Run Full Program</button>
@@ -54,6 +54,32 @@
       <div class="cuc-bar" id="nn_log">Click <strong>Train +15 Epochs</strong> to watch hidden and output basins phase-lock onto target regimes.</div>
     </div>
   </div>
+
+  <!-- SECTION 3: LIVE .CUC ASSEMBLY COMPILER & SANDBOX -->
+  <div class="card" style="margin-top:1.5rem;">
+    <h2>3. Live .cuc Assembly Compiler &amp; Execution Sandbox</h2>
+    <div class="sub">Edit native .cuc opcodes below and click <strong>Compile &amp; Run</strong> to update the live Unit-Circle VM above</div>
+    <div class="panel">
+      <div>
+        <textarea id="cuc_editor" rows="9" style="width:100%;background:#0b1120;color:#e2e8f0;border:1px solid #334155;border-radius:6px;padding:0.75rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.84rem;line-height:1.45;"># Edit any (A, phi) phasor pairs or thresholds and click Compile &amp; Run
+LOAD (0.95, 0.12), (0.90, 0.24), (0.92, 0.18), (0.60, -2.40), (0.55, -2.10)
+COMPOSE A=1.05 phi=0.05 beta=1.5
+PROJECT bounds=0.1,1.0
+BRANCH theta=0.35
+STABILIZE steps=12 kappa=0.45
+SELECT
+HALT</textarea>
+        <div class="btn-row" style="margin-top:0.75rem;">
+          <button onclick="runCustomCUC()">Compile &amp; Run .cuc</button>
+          <button class="secondary" onclick="loadThreeBasinPreset()">Load 3-Basin Preset</button>
+        </div>
+      </div>
+      <div>
+        <div class="cuc-bar" id="comp_status">Compiler ready. Supports <code>LOAD</code>, <code>COMPOSE</code>, <code>PROJECT</code>, <code>BRANCH</code>, <code>STABILIZE</code>, <code>SELECT</code>, <code>HALT</code>.</div>
+        <pre id="comp_out" style="min-height:145px;">Click "Compile &amp; Run .cuc" to inspect compiled bytecode &amp; basin energies.</pre>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -61,5 +87,6 @@
 </footer>
 
 <script src="cuc_computer.js"></script>
+<script src="cuc_compiler_ui.js"></script>
 </body>
 </html>
